@@ -50,8 +50,8 @@ function JobList() {
           </Avatar>
         }
         
-        title={job.jobRole}
-        subheader={job.location}
+        title=<Typography variant="body2" color="text.secondary">{job.jobRole}</Typography>
+        subheader= <Typography variant="body2" color="text.secondary">{job.location}</Typography>
         header={ <Typography variant="body3" color="text.secondary">
           Estimated Salary : {job.experience}
         </Typography>}
