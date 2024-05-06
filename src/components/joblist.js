@@ -7,7 +7,8 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-
+import Experience from "./experience";
+import Location from "./location";
 import "./joblist.css";
 import Button from "@mui/material/Button";
 import BoltIcon from "@mui/icons-material/Bolt";
@@ -15,6 +16,10 @@ import BoltIcon from "@mui/icons-material/Bolt";
 function JobList() {
   const dispatch = useDispatch();
   const jobs = useSelector((state) => state.jobs.items);
+  const [selectedExperience, setSelectedExperience] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState(null);
+
+
   const [offset, setOffset] = useState(0);
   console.log(jobs);
 
@@ -42,15 +47,23 @@ function JobList() {
   }, []);
 
   return (
+<div>
+<div className="filter-grp d-flex flex-row">
+<Experience selectedExperience={selectedExperience} setSelectedExperience={setSelectedExperience} />
+<Location selectedLocation={selectedLocation} setSelectedLocation={setSelectedLocation}/>
+</div>
+
     <div
-      className="deck"
+      className="deck pt-3"
       style={{
         display: "flex",
         flexWrap: "wrap",
         justifyContent: "space-around",
       }}
     >
-      {jobs.map((job, index) => (
+      {jobs.filter((job) => (selectedExperience === 0 || job.minExp === selectedExperience)
+        &&(selectedLocation=== null||job.location && selectedLocation && job.location.toLowerCase().trim()===selectedLocation.toLowerCase().trim()))
+      .map((job, index) => (
         <Card
           key={index}
           sx={{
@@ -88,6 +101,7 @@ function JobList() {
           </CardActions>
         </Card>
       ))}
+    </div>
     </div>
   );
 }
