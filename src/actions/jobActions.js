@@ -22,7 +22,6 @@ export function fetchJobs(limit, offset) {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (typeof data === "object" && data !== null) {
           // Convert the object to an array
           const jobsArray = Object.values(data);
