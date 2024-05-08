@@ -2,7 +2,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
-function CompanyName({ selectedCompany, setSelectedCompany }) {
+function CompanyName({ selectedCompany, setSelectedCompany, darkMode }) {
   return (
     <Box
       component="form"
@@ -18,9 +18,10 @@ function CompanyName({ selectedCompany, setSelectedCompany }) {
         variant="outlined"
         value={selectedCompany}
         onChange={(event) => {
-          event.preventDefault();
+          event.preventDefault(event);
           setSelectedCompany(event.target.value);
         }}
+        sx={{ backgroundColor: darkMode ? "#333" : "#FFF" }}
       />
     </Box>
   );

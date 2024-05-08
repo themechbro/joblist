@@ -18,7 +18,7 @@ import BoltIcon from "@mui/icons-material/Bolt";
 function JobCard({ job, index }) {
   const [expanded, setExpanded] = useState(false);
 
-  const toggleExpanded=()=>{
+  const toggleExpanded = () => {
     setExpanded(!expanded);
   };
 
@@ -31,23 +31,28 @@ function JobCard({ job, index }) {
         marginTop: 1,
         flex: "0 1 calc(25%- 1em)",
       }}
+      elevation={6}
+      borderRadius={4}
+      boxShadow={3}
     >
       <div className="card-header">
         <Avatar
           aria-label="jobs"
           src={job.logoUrl}
-          sx={{ width: 56, height: 56, m:"auto" }}
+          sx={{ width: 56, height: 56, m: "auto" }}
         ></Avatar>
         <div className="card-header-text">
           <h1 className="h4"> {job.companyName}</h1>
           <h3 className="blockquote">{job.jobRole}</h3>
           <p className="lead">{job.location}</p>
-          <p className="blockquote-footer">Minimum Experience:{job.minExp?job.minExp:job.maxExp}</p>
+          <p className="blockquote-footer">
+            Minimum Experience:{job.minExp ? job.minExp : job.maxExp}
+          </p>
         </div>
       </div>
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-        {expanded
+          {expanded
             ? job.jobDetailsFromCompany
             : job.jobDetailsFromCompany.slice(0, 100) + "..."}{" "}
           {/* Limiting to first 100 characters */}
@@ -61,7 +66,6 @@ function JobCard({ job, index }) {
       <CardActions disableSpacing>
         <Button
           component="a"
-          
           variant="contained"
           tabIndex={-1}
           startIcon={<BoltIcon />}
@@ -80,8 +84,8 @@ function JobList() {
   const [selectedExperience, setSelectedExperience] = useState("");
   const [selectedCompany, setSelectedCompany] = useState("");
   const [selectedRemote, setSelectedRemote] = useState("");
-  const [selectedRole, setSelectedRole]= useState('');
-  const [selectedPlace, setSelectedPlace]= useState("All");
+  const [selectedRole, setSelectedRole] = useState("");
+  const [selectedPlace, setSelectedPlace] = useState("");
 
   const [offset, setOffset] = useState(0);
 
@@ -105,7 +109,7 @@ function JobList() {
 
   return (
     <div>
-      <div className="filter-grp d-flex flex-row justify-content-center m-auto">
+      <div className="filter-grp  m-auto">
         <Experience
           selectedExperience={selectedExperience}
           setSelectedExperience={setSelectedExperience}
@@ -118,10 +122,7 @@ function JobList() {
           selectedOption={selectedRemote}
           setSelectededOption={setSelectedRemote}
         />
-        <Role
-          selectedRole={selectedRole}
-          setSelectedRole={setSelectedRole}
-        />
+        <Role selectedRole={selectedRole} setSelectedRole={setSelectedRole} />
         <Location
           selectedPlace={selectedPlace}
           setSelectedPlace={setSelectedPlace}
@@ -129,7 +130,8 @@ function JobList() {
       </div>
 
       <div
-        className="deck pt-3"
+        className="deck pt-3 collapse navbar-collapse"
+        id="navbarSupportedContent"
         style={{
           display: "flex",
           flexWrap: "wrap",
@@ -140,10 +142,11 @@ function JobList() {
           .filter((job) => {
             if (typeof job !== "object") {
               return false;
-           }
+            }
             const isExperienceMatch =
-              selectedExperience === "" || 
-              selectedExperience === "0"||
+              selectedExperience === "All" ||
+              selectedExperience === "" ||
+              selectedExperience === "0" ||
               job.minExp === selectedExperience;
             const isCompanyMatch =
               selectedCompany === "" ||
@@ -152,38 +155,37 @@ function JobList() {
               selectedRemote === "" ||
               (selectedRemote === "remote" && job.location === "remote") ||
               (selectedRemote === "OnSite" && job.location !== "remote");
-            
-            const isTechMatch=
-            selectedRole==="" ||
-            job.jobRole.includes(selectedRole);
+
+            const isTechMatch =
+              selectedRole === "" || job.jobRole.includes(selectedRole);
 
             const isLocationMatch =
-              selectedPlace === "All" || job.location === selectedPlace;
+              selectedPlace === "" || job.location === selectedPlace;
 
-            return isExperienceMatch && isCompanyMatch && isRemoteMatch && isTechMatch && isLocationMatch ;
+            return (
+              isExperienceMatch &&
+              isCompanyMatch &&
+              isRemoteMatch &&
+              isTechMatch &&
+              isLocationMatch
+            );
           })
 
-
-
-
-
-
-
-            //if (selectedRemote === "remote") {
-            //  return job.location === "remote";
-            //} else if (selectedRemote === "OnSite") {
-             // return job.location !== "remote";
-            //}
-            //return true; // Return true if no filter is applied
+          //if (selectedRemote === "remote") {
+          //  return job.location === "remote";
+          //} else if (selectedRemote === "OnSite") {
+          // return job.location !== "remote";
+          //}
+          //return true; // Return true if no filter is applied
           //})
 
-            //return (
-              //(selectedExperience === "" ||
-               // job.minExp === selectedExperience) &&
-              //(selectedCompany === "" ||
-               // job.companyName.includes(selectedCompany)) &&
-              //(selectedRemote === "" || job.remote === selectedRemote)
-            //);
+          //return (
+          //(selectedExperience === "" ||
+          // job.minExp === selectedExperience) &&
+          //(selectedCompany === "" ||
+          // job.companyName.includes(selectedCompany)) &&
+          //(selectedRemote === "" || job.remote === selectedRemote)
+          //);
           //})
           .map((job, index) => (
             <JobCard job={job} index={index} />

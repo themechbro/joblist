@@ -34,3 +34,9 @@ export function fetchJobs(limit, offset) {
       .catch((error) => console.error(error));
   };
 }
+
+export function toggleDarkMode() {
+  return {
+    type: "TOGGLE_DARK_MODE",
+  };
+}

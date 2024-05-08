@@ -1,40 +1,30 @@
 import React from "react";
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 
-const locations=["All", 'delhi ncr', 'mumbai', 'chennai', 'bangalore', 'remote'];
-
-function Location(selectedPlace, setSelectedPlace){
-
-    const handleChange = (event) => {
-        setSelectedPlace(event.target.value);
-      };
-    
-    return(
-        
-        <FormControl sx={{ m: 1, width: 300 }}>
-       <InputLabel id="filter-by-location">Location</InputLabel>
-       <Select
-       name="location"
-           labelId="filter-by-location"
-         id="filter-by-location"
-         value={selectedPlace}
-         onChange={handleChange}
-         input={<OutlinedInput label="Location" />}
-       >
-         {locations.map(e=>(<MenuItem value={e}>{e}</MenuItem>)
-           
-         )}
-
-           
-       </Select>
-       </FormControl>
-
-   
-   )
+function Location({ selectedPlace, setSelectedPlace, darkMode }) {
+  return (
+    <Box
+      component="form"
+      sx={{
+        "& > :not(style)": { m: 1, width: "25ch" },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <TextField
+        id="standard-basic"
+        label="Location"
+        variant="outlined"
+        value={selectedPlace}
+        onChange={(event) => {
+          event.preventDefault(event);
+          setSelectedPlace(event.target.value);
+        }}
+        sx={{ backgroundColor: darkMode ? "#333" : "#FFF" }}
+      />
+    </Box>
+  );
 }
 
 export default Location;
