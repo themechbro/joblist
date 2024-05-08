@@ -5,18 +5,24 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-const options = ["All","remote", "OnSite"];
+const options = ["All", "remote", "OnSite"];
 
-function Remote({ selectedOption, setSelectededOption }) {
+function Remote({ selectedOption, setSelectededOption, darkMode }) {
   return (
-    <FormControl sx={{ m: 1, width: 300 }}>
+    <FormControl
+      sx={{ m: 1, width: 300, backgroundColor: darkMode ? "#333" : "#FFF" }}
+    >
       <InputLabel id="filter-by-remote">Work Mode</InputLabel>
       <Select
         name="remote"
         labelId="filter-by-remote"
         id="filter-by-remote"
         value={selectedOption}
-        onChange={(event) => setSelectededOption(event.target.value==='All'?"":event.target.value)}
+        onChange={(event) =>
+          setSelectededOption(
+            event.target.value === "All" ? "" : event.target.value,
+          )
+        }
         input={<OutlinedInput label="Work Mode" />}
       >
         {options.map((e) => (

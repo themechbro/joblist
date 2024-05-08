@@ -36,3 +36,20 @@
     transform: rotate(360deg);
   }
 }
+
+body.light-mode {
+  background-color: #ffffff; /* Light mode background color */
+}
+
+body.dark-mode {
+  background-color: #121212; /* Dark mode background color */
+}
+
+@media screen and (min-width: 1000px) {
+  Box {
+    width: 10ch;
+  }
+  FormControl {
+    width: 100;
+  }
+}
