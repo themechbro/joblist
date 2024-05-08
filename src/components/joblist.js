@@ -14,6 +14,7 @@ import Location from "./location";
 import "./joblist.css";
 import Button from "@mui/material/Button";
 import BoltIcon from "@mui/icons-material/Bolt";
+import AvatarGroup from "@mui/material/AvatarGroup";
 
 function JobCard({ job, index }) {
   const [expanded, setExpanded] = useState(false);
@@ -52,6 +53,11 @@ function JobCard({ job, index }) {
       </div>
       <CardContent>
         <Typography variant="body2" color="text.secondary">
+          <h1 className="h6 ">
+            <b>
+              <u>About Us:</u>
+            </b>
+          </h1>
           {expanded
             ? job.jobDetailsFromCompany
             : job.jobDetailsFromCompany.slice(0, 100) + "..."}{" "}
@@ -62,16 +68,60 @@ function JobCard({ job, index }) {
             </Button>
           )}
         </Typography>
+        <Typography variant="body1" color="text.secondary">
+          Expected Salary: {job.maxJdSalary} LPA
+        </Typography>
       </CardContent>
-      <CardActions disableSpacing>
+      <CardActions
+        sx={{
+          dispaly: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         <Button
           component="a"
           variant="contained"
           tabIndex={-1}
-          startIcon={<BoltIcon />}
+          startIcon={<BoltIcon sx={{ color: "yellow" }} />}
           href={job.jdLink}
+          sx={{
+            width: "100%",
+            padding: "5px",
+            marginTop: "10px",
+            backgroundColor: "cyan",
+            color: "black",
+          }}
         >
           EASY APPLY
+        </Button>
+
+        <Button
+          component="a"
+          variant="contained"
+          tabIndex={-1}
+          href={job.jdLink}
+          sx={{
+            width: "100%",
+            padding: "5px",
+            marginTop: "10px",
+            backgroundColor: "purple",
+          }}
+        >
+          <AvatarGroup max={2}>
+            <Avatar
+              alt="Remy Sharp"
+              src="/static/images/avatar/1.jpg"
+              sx={{ width: 20, height: 20 }}
+            />
+            <Avatar
+              alt="Travis Howard"
+              src="/static/images/avatar/2.jpg"
+              sx={{ width: 20, height: 20 }}
+            />
+          </AvatarGroup>
+          Unlock Referral Asks
         </Button>
       </CardActions>
     </Card>
