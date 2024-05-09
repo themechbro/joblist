@@ -25,6 +25,7 @@ function JobCard({ job, index }) {
 
   return (
     <Card
+      className="card"
       key={index}
       sx={{
         maxWidth: 345,
