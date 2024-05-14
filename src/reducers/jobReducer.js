@@ -1,6 +1,7 @@
 const initialState = {
   items: [],
   darkMode: false,
+  loading: false,
 };
 
 export default function jobReducer(state = initialState, action) {
@@ -14,6 +15,10 @@ export default function jobReducer(state = initialState, action) {
         ...state,
         darkMode: !state.darkMode,
       };
+    case "LOADING_JOBS":
+      return { ...state, loading: true };
+    case "LOADED_JOBS":
+      return { ...state, loading: false };
     default:
       return state;
   }
